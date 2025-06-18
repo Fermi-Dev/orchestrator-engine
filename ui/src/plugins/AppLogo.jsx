@@ -1,3 +1,4 @@
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { cleanDuplicateSlash } from "./fetch";
 
@@ -11,6 +12,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppLogo() {
   const classes = useStyles();
-  const logoPath = 'https://fermi-assets.s3.ap-south-1.amazonaws.com/logo.png';
+  const logoPath = 'https://assets.conductor-oss.org/logo.png';
   return <img src={cleanDuplicateSlash(logoPath)} alt="Conductor" className={classes.logo} />;
 }
