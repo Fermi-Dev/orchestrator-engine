@@ -9,19 +9,16 @@ services:
       - DB_NAME=${DB_NAME:-conductor}
       - DB_USER=${DB_USER:-conductor}
       - DB_PASSWORD=${DB_PASSWORD}
-      - REDIS_HOST=${REDIS_HOST}
-      - REDIS_PORT=${REDIS_PORT:-6379}
-      - AWS_REGION=${AWS_REGION:-ap-south-1}
-    network_mode: "host"
-    extra_hosts:
-      - "fermiflow-redis.gjxxcu.0001.aps1.cache.amazonaws.com:10.0.3.151"
+      - REDIS_HOST=conductor-redis
+      - REDIS_PORT=6379
+      - AWS_REGION=${AWS_REGION:-us-east-1}
     image: conductor:server
     container_name: conductor-server
     build:
       context: ../
       dockerfile: docker/server/Dockerfile
-    # networks:
-    #   - internal
+    networks:
+      - internal
     ports:
       - 8080:8080
       - 8127:5000
@@ -33,8 +30,30 @@ services:
     depends_on:
       conductor-elasticsearch:
         condition: service_healthy
+      conductor-redis:
+        condition: service_healthy
     volumes:
       - ./server/config:/app/config
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
+
+  conductor-redis:
+    image: redis:6.2.3-alpine
+    container_name: conductor-redis
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - internal
+    ports:
+      - 7379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     logging:
       driver: "json-file"
       options:
