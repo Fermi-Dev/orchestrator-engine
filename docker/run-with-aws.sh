@@ -61,8 +61,8 @@ fi
 # Build and start services
 echo ""
 echo "Building and starting Conductor services..."
-docker-compose -f docker-compose-aws-external.yaml build
-docker-compose -f docker-compose-aws-external.yaml up -d
+docker-compose -f docker-compose-mysql-aws.yaml build
+docker-compose -f docker-compose-mysql-aws.yaml up -d
 
 # Wait for services to be healthy
 echo ""
@@ -72,13 +72,13 @@ sleep 10
 # Check service health
 echo ""
 echo "Checking service health..."
-docker-compose -f docker-compose-aws-external.yaml ps
+docker-compose -f docker-compose-mysql-aws.yaml ps
 
 # Show logs for debugging if needed
 if [ "$1" == "--logs" ]; then
     echo ""
     echo "Showing logs..."
-    docker-compose -f docker-compose-aws-external.yaml logs -f
+    docker-compose -f docker-compose-mysql-aws.yaml logs -f
 fi
 
 echo ""
@@ -89,8 +89,8 @@ echo "  - UI: http://localhost:5001"
 echo "  - Elasticsearch: http://localhost:9200"
 echo ""
 echo "Useful commands:"
-echo "  - View logs: docker-compose -f docker-compose-aws-external.yaml logs -f"
-echo "  - Stop services: docker-compose -f docker-compose-aws-external.yaml down"
-echo "  - Restart services: docker-compose -f docker-compose-aws-external.yaml restart"
+echo "  - View logs: docker-compose -f docker-compose-mysql-aws.yaml logs -f"
+echo "  - Stop services: docker-compose -f docker-compose-mysql-aws.yaml down"
+echo "  - Restart services: docker-compose -f docker-compose-mysql-aws.yaml restart"
 echo ""
 echo "Check API health: curl http://localhost:8080/health" 
