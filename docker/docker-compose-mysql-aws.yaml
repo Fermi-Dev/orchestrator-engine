@@ -12,7 +12,7 @@ services:
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT=${REDIS_PORT:-6379}
       - AWS_REGION=${AWS_REGION:-ap-south-1}
-    network_mode: "host"
+    # network_mode: "host"
     extra_hosts:
       - "fermiflow-redis.gjxxcu.0001.aps1.cache.amazonaws.com:10.0.3.151"
     image: conductor:server
