@@ -36,8 +36,8 @@ dependencies {
     testImplementation "org.spockframework:spock-core:${revSpock}"
     testImplementation "org.spockframework:spock-spring:${revSpock}"
 
-    implementation "org.elasticsearch.client:elasticsearch-rest-client:6.8.23"
-    implementation "org.elasticsearch.client:elasticsearch-rest-high-level-client:6.8.23"
+    implementation "org.elasticsearch.client:elasticsearch-rest-client:9.1.0"
+    implementation "org.elasticsearch.client:elasticsearch-rest-high-level-client:9.1.0"
 
     implementation "org.testcontainers:elasticsearch:${revTestContainer}"
     implementation "org.testcontainers:mysql:${revTestContainer}"
